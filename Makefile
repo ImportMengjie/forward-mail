@@ -11,13 +11,14 @@ PKG_RELEASE:=1
 # This is a custom variable, used below
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 # Package definition; instructs on how and where our package will appear in the overall configuration menu ('make menuconfig')
 define Package/ForwardMail
   SECTION:=examples
   CATEGORY:=Examples
   TITLE:=Hello, World!
-  DEPENDS:=+libstdcpp
+  DEPENDS:=+libstdcpp +libpthread +libcurl
 
 endef
 
@@ -30,7 +31,7 @@ endef
 # The last command is necessary to ensure our preparation instructions remain compatible with the patching system.
 define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	cp ./src/* $(PKG_BUILD_DIR)
+	cp -r ./src/* $(PKG_BUILD_DIR)
 	$(Build/Patch)
 endef
 
@@ -42,7 +43,8 @@ endef
 
 # Package install instructions; create a directory inside the package to hold our executable, and then copy the executable we built previously into the folder
 define Package/ForwardMail/install
-
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin
 endef
 
 # This command is always the last, it uses the definitions and variables we give above in order to get the job done

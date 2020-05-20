@@ -44,6 +44,15 @@ namespace dd{
             data_cond.notify_all();
         }
 
+        template<typename _InputIterator>
+        void push(_InputIterator first, _InputIterator last){
+            std::lock_guard<std::mutex> lk(mut);
+            for(auto itor=first;itor!=last;++itor){
+                data_queue.push(*itor);
+            }
+
+        }
+
         value_type wait_and_pop(){
             std::unique_lock<std::mutex>lk(mut);
             data_cond.wait(lk,[this]{return !this->data_queue.empty();});

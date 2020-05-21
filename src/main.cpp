@@ -4,7 +4,7 @@
 #include <string.h>
 #include <vector>
 #include <curl/curl.h>
-#include "base/queue_s.h"
+#include "base/Queue_s.h"
 using namespace std;
 //ZNFEJFBUGWLGEUYA
 
@@ -152,7 +152,7 @@ void recive_mail(MemoryStruct &memoryStruct){
 
     curl_easy_setopt(curl, CURLOPT_USERNAME, "l253637141");
     curl_easy_setopt(curl, CURLOPT_PASSWORD, "ZNFEJFBUGWLGEUYA");
-//    curl_easy_setopt(curl, CURLOPT_URL, "imap://imap.163.com/INBOX/;UID=3");
+    curl_easy_setopt(curl, CURLOPT_URL, "imap://imap.163.com/INBOX/;UID=3");
     curl_easy_setopt(curl, CURLOPT_URL, "imap://imap.163.com/INBOX");
 
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "SEARCH NEW");
@@ -180,7 +180,7 @@ void recive_mail(MemoryStruct &memoryStruct){
 }
 
 int main(){
-    dd::queue_s<int> q;
+    dd::Queue_s<int> q;
     MemoryStruct memoryStruct;
     curl_global_init(CURL_GLOBAL_ALL);
     recive_mail(memoryStruct);
@@ -191,7 +191,7 @@ int main(){
     string from = "l253637141@163.com";
     string to = "253637141@qq.com";
     outputLines.handleData(from,to);
-    send_mail(outputLines,from, to);
+//    send_mail(outputLines,from, to);
     return 0;
 
 }

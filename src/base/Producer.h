@@ -8,14 +8,14 @@
 #include <memory>
 #include <vector>
 
-#include "task.h"
+#include "Task.h"
 
 namespace dd{
 
-    class producer {
+    class Producer {
 
     public:
-        virtual std::vector<std::shared_ptr<task>> product() = 0;
+        virtual std::vector<std::shared_ptr<Task>> product() = 0;
 
     };
 }

@@ -8,11 +8,11 @@
 
 namespace dd{
 
-    class task: public std::enable_shared_from_this<task> {
+    class Task: public std::enable_shared_from_this<Task> {
 
     public:
         template<typename... Ts>
-        static std::shared_ptr<task> create(Ts&&... params);
+        static std::shared_ptr<Task> create(Ts&&... params);
 
         virtual void doit()=0;
 

@@ -14,7 +14,7 @@
 namespace dd{
 
     template <typename T>
-    class queue_s{
+    class Queue_s{
     private:
         mutable std::mutex mut;
         mutable std::condition_variable data_cond;
@@ -25,18 +25,18 @@ namespace dd{
         using value_type = typename queue_type::value_type;
         using container_type = typename queue_type::container_type;
 
-        queue_s()=default;
-        queue_s(const queue_s&)=delete;
-        queue_s& operator=(queue_s&)=delete;
+        Queue_s()=default;
+        Queue_s(const Queue_s&)=delete;
+        Queue_s& operator=(Queue_s&)=delete;
 
         template<typename _InputIterator>
-        queue_s(_InputIterator first, _InputIterator last){
+        Queue_s(_InputIterator first, _InputIterator last){
             for(auto itor=first;itor!=last;++itor){
                 data_queue.push(*itor);
             }
         }
-        explicit queue_s(const container_type &c):data_queue(c){}
-        queue_s(std::initializer_list<value_type> list):data_queue(list.begin(),list.end()){}
+        explicit Queue_s(const container_type &c): data_queue(c){}
+        Queue_s(std::initializer_list<value_type> list): data_queue(list.begin(), list.end()){}
 
         void push(const value_type& new_value){
             std::lock_guard<std::mutex> lk(mut);

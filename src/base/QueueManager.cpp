@@ -30,12 +30,14 @@ void dd::QueueManager::addProducer(InputIterator first, InputIterator last) {
 
 }
 
-void dd::QueueManager::addProducer(std::initializer_list<std::unique_ptr<producer>> list) {
-    addProducer(list.begin(), list.end());
+//void dd::QueueManager::addProducer(std::initializer_list<std::unique_ptr<Producer>>&& list) {
+////    addProducer(list.begin(), list.end());
+//    for(const auto & it : list)
+//        this->producers.push_back(std::move(it));
+//
+//}
 
-}
-
-void dd::QueueManager::addProducer(std::unique_ptr<producer> &producer) {
+void dd::QueueManager::addProducer(std::unique_ptr<Producer> &producer) {
     this->producers.push_back(std::move(producer));
 }
 

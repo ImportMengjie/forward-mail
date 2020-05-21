@@ -10,18 +10,18 @@
 #include <vector>
 #include <initializer_list>
 
-#include "queue_s.h"
-#include "task.h"
-#include "producer.h"
+#include "Queue_s.h"
+#include "Task.h"
+#include "Producer.h"
 
 namespace dd{
 
     class QueueManager {
 
     private:
-        queue_s<std::shared_ptr<task>> queue;
+        Queue_s<std::shared_ptr<Task>> queue;
 
-        std::vector<std::unique_ptr<producer>> producers;
+        std::vector<std::unique_ptr<Producer>> producers;
 
         std::vector<std::thread> product_ts;
         std::vector<std::thread> consume_ts;
@@ -33,8 +33,8 @@ namespace dd{
 
         template<typename InputIterator>
         void addProducer(InputIterator first, InputIterator last);
-        void addProducer(std::initializer_list<std::unique_ptr<producer>> list);
-        void addProducer(std::unique_ptr<producer>& producer);
+//        void addProducer(std::initializer_list<std::unique_ptr<Producer>>&& list);
+        void addProducer(std::unique_ptr<Producer>& producer);
 
         template<typename T, typename... Ts>
         void addProducer(Ts&&... params){

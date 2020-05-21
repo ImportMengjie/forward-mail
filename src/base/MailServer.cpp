@@ -11,9 +11,9 @@ using namespace dd;
 void MailServer::init_login() {
     curl_easy_setopt(curl, CURLOPT_USERNAME, username.c_str());
     curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());
-//#ifdef DD_DEBUG
+#ifdef DD_DEBUG
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
-//#endif
+#endif
 }
 
 MailServer::MailServer(std::string mail_address, std::string password, std::string url)
@@ -83,9 +83,6 @@ std::vector<int> MailServer::search_new_uid() {
     }else{
         string data(memoryStruct.memory);
         vector<std::string> chuck;
-        std::string t = data.substr(data.find("SEARCH")+7, data.find('\r')-data.find("SEARCH")+7);
-        int find_r = data.find('\r');
-        int find_s = data.find("SEARCH");
         dd:split(data.substr(data.find("SEARCH")+6,data.find('\r') - data.find("SEARCH")-6),chuck," ");
         for(auto& str:chuck)
             ans.push_back(std::stoi(str));

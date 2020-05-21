@@ -19,12 +19,15 @@ dd::MailServer ForwardMailProducer::generate_new_mail_server(std::string url) {
 std::vector<std::shared_ptr<dd::Task>> ForwardMailProducer::product() {
     std::vector<std::shared_ptr<dd::Task>> ans;
     std::vector<int> new_mail_ids = receive_mailServer.search_new_uid();
-    new_mail_ids.push_back(4);
+#ifdef DD_DEBUG
+//    new_mail_ids.push_back(3);
+#endif
     for(int& uid:new_mail_ids){
         dd::Mail new_mail = receive_mailServer.receive_mail(uid);
         new_mail.set_value("From", new_mail.get_value("To"));
         for(std::string& addr: to_mails_address){
-            new_mail.set_value("To", dd::replace_middle(new_mail.get_value("To"), addr, "<", ">"));
+//            new_mail.set_value("To", dd::replace_middle(new_mail.get_value("To"), addr, "<", ">"));
+            new_mail.set_value("To", "<"+addr+">\r\n");
             ans.push_back(std::make_shared<ForwardMailTask>(new_mail, send_mailServer));
         }
     }

@@ -41,20 +41,28 @@ void dd::QueueManager::addProducer(std::unique_ptr<Producer> &producer) {
     this->producers.push_back(std::move(producer));
 }
 
-bool dd::QueueManager::start(int number_of_consumer) {
-    if(!producers.empty()&&number_of_consumer>0){
+
+void dd::QueueManager::product(int ids, int interval_seconds) {
+    if(producers.size()>ids){
+        while (true){
+            auto tasks = producers[ids]->product();
+            for(auto& task: tasks)
+                queue.push(task);
+            std::this_thread::sleep_for(std::chrono::seconds(interval_seconds));
+        }
+    }
+}
+
+bool dd::QueueManager::start(int number_of_consumer_thread_count, int interval_product_seconds) {
+    if(!producers.empty()&&number_of_consumer_thread_count>0){
         product_ts.clear();
         consume_ts.clear();
         for(int i=0;i<producers.size();i++)
-            product_ts.emplace_back(&QueueManager::product,this,i);
-        for(int i=0;i<number_of_consumer;i++)
+            product_ts.emplace_back(&QueueManager::product,this,i, interval_product_seconds);
+        for(int i=0;i<number_of_consumer_thread_count;i++)
             consume_ts.emplace_back(&QueueManager::consume, this);
         return true;
     }
     return false;
-}
-
-void dd::QueueManager::product(int ids) {
-    if(producers.size()>ids)
-        producers[ids]->product();
+    return false;
 }

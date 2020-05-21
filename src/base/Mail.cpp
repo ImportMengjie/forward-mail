@@ -6,6 +6,8 @@
 #include "Mail.h"
 #include "utility.hpp"
 
+using namespace dd;
+
 Mail::Mail(const char *str):data(str) {
     dd::split(data,lines,"\n");
     rehash();

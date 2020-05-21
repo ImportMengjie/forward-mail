@@ -29,6 +29,10 @@ namespace dd{
     protected:
         bool live = true;
 
+        virtual void product(int ids, int interval_product_seconds);
+
+        virtual void consume();
+
     public:
 
         template<typename InputIterator>
@@ -38,14 +42,10 @@ namespace dd{
 
         template<typename T, typename... Ts>
         void addProducer(Ts&&... params){
-            producers.push_back(new T(std::forward<Ts>(params)...));
+            producers.emplace_back(new T(std::forward<Ts>(params)...));
         }
 
-        virtual void product(int ids);
-
-        virtual void consume();
-
-        bool start(int number_of_consumer_thread_count=1);
+        bool start(int number_of_consumer_thread_count, int interval_product_seconds);
 
         void join();
 

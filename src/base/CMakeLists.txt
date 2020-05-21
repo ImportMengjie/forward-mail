@@ -6,6 +6,8 @@ set(BASE_SRC
         QueueManager.cpp
         Task.cpp
         utility.hpp
-        MailServer.cpp MailServer.h)
+        MailServer.cpp)
 
 add_library(base ${BASE_SRC})
+
+target_link_libraries(base pthread)

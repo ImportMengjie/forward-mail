@@ -29,6 +29,40 @@ namespace dd{
         std::string mail_address;
         std::string password;
         std::string URL;
+    public:
+        const std::string &getUsername() const {
+            return username;
+        }
+
+        void setUsername(const std::string &username) {
+            MailServer::username = username;
+        }
+
+        const std::string &getMailAddress() const {
+            return mail_address;
+        }
+
+        void setMailAddress(const std::string &mailAddress) {
+            mail_address = mailAddress;
+        }
+
+        const std::string &getPassword() const {
+            return password;
+        }
+
+        void setPassword(const std::string &password) {
+            MailServer::password = password;
+        }
+
+        const std::string &getUrl() const {
+            return URL;
+        }
+
+        void setUrl(const std::string &url) {
+            URL = url;
+        }
+
+    private:
         CURL* curl;
 
         void init_login();
@@ -46,7 +80,7 @@ namespace dd{
 
         std::vector<int> search_new_uid();
 
-        Mail recive_mail(int uid);
+        Mail receive_mail(int uid);
 
     };
 

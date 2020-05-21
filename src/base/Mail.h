@@ -9,44 +9,47 @@
 #include <vector>
 #include <unordered_map>
 
-class Mail {
-private:
-    std::string data;
-    std::vector<std::string> lines;
-    int current_line = 0;
-    size_t total_size = 0;
+namespace dd{
 
-    std::unordered_map<std::string,std::vector<int>> table_k_ids;
+    class Mail {
+    private:
+        std::string data;
+        std::vector<std::string> lines;
+        int current_line = 0;
+        size_t total_size = 0;
 
-    void resize();
+        std::unordered_map<std::string,std::vector<int>> table_k_ids;
 
-    void rehash();
+        void resize();
 
-    std::string get_line(const std::string& key);
+        void rehash();
 
-    bool set_line(const std::string& key, const std::string& value);
+        std::string get_line(const std::string& key);
+
+        bool set_line(const std::string& key, const std::string& value);
 
 
-    bool delete_line(const int& ids);
+        bool delete_line(const int& ids);
 
-public:
-    explicit Mail(const char* str);
+    public:
+        explicit Mail(const char* str);
 
-    int delete_line(const std::string& key);
+        int delete_line(const std::string& key);
 
-    bool contain_key(const std::string& key);
+        bool contain_key(const std::string& key);
 
-    bool set_value(const std::string& key, const std::string& value);
+        bool set_value(const std::string& key, const std::string& value);
 
-    std::string get_value(const std::string& key);
+        std::string get_value(const std::string& key);
 
-    const char* next_line();
+        const char* next_line();
 
-    void reset();
+        void reset();
 
-    size_t get_size() const{return total_size;};
+        size_t get_size() const{return total_size;};
 
-};
+    };
+}
 
 
 #endif //FORWARD_MAIL_MAIL_H

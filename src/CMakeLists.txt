@@ -9,7 +9,7 @@ add_definitions(-std=c++11)
 add_subdirectory(base)
 
  
-SET(SOURCES main.cpp)
+SET(SOURCES main.cpp ForwardMailProducer.cpp ForwardMailProducer.h ForwardMailTask.cpp ForwardMailTask.h)
 ADD_EXECUTABLE(forward-mail ${SOURCES})
 
 target_link_libraries(forward-mail curl base)

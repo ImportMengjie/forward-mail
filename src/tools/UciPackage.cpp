@@ -3,3 +3,9 @@
 //
 
 #include "UciPackage.h"
+
+dd::UciPackage::UciPackage(std::string config_data)
+    :config_data(std::move(config_data)) {
+
+
+}

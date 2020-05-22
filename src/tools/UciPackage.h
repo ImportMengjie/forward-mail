@@ -9,15 +9,24 @@
 #include <unordered_map>
 #include <vector>
 
+#include "UciItem.h"
+#include "UciSection.h"
+
 namespace dd{
 
     class UciPackage {
 
     private:
-        std::string config_path;
+        std::string config_data;
         std::vector<std::string> list_config_data;
+        std::vector<UciItem> list_config_items;
+        std::vector<UciSection> list_config_sections;
 
     public:
+
+        UciPackage() = default;
+
+        UciPackage(std::string config_data);
 
 
     };

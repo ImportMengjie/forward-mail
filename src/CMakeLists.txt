@@ -11,6 +11,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} $ENV{TARGET_LDFLAGS} -L$EN
 add_definitions(-std=c++11)
 
 add_subdirectory(base)
+add_subdirectory(tools)
 
  
 SET(SOURCES main.cpp ForwardMailProducer.cpp ForwardMailProducer.h ForwardMailTask.cpp ForwardMailTask.h)

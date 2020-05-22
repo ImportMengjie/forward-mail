@@ -32,7 +32,7 @@ MailServer::~MailServer() {
 bool MailServer::send_mail(Mail &mail, std::string to_address) {
     curl_easy_reset(curl);
     init_login();
-    struct curl_slist *recipients = NULL;
+    struct curl_slist *recipients = nullptr;
 
     if(to_address.empty())
         to_address = dd::get_middle(mail.get_value("To"), "<", ">");

@@ -7,7 +7,6 @@
 
 #include <string>
 #include <unordered_map>
-#include <vector>
 
 #include "UciItem.h"
 #include "UciSection.h"
@@ -17,17 +16,19 @@ namespace dd{
     class UciPackage {
 
     private:
-        std::string config_data;
-        std::vector<std::string> list_config_data;
-        std::vector<UciItem> list_config_items;
-        std::vector<UciSection> list_config_sections;
+        std::unordered_map<std::string, UciSection> map_name_sections;
+
+        std::string name;
+
+        void init(const std::vector<UciItem>& items);
 
     public:
 
         UciPackage() = default;
 
-        UciPackage(std::string config_data);
+        explicit UciPackage(const std::string& config_path);
 
+        explicit UciPackage(const std::vector<UciItem>& items);
 
     };
 }

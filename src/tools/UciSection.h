@@ -16,11 +16,25 @@ namespace dd{
     class UciSection {
 
     private:
-        std::string section_type;
-        std::string section_name;
+        UciItem section;
 
         std::unordered_map<std::string, UciItem> options;
         std::unordered_map<std::string, std::vector<UciItem>> lists;
+
+    public:
+        UciSection(const std::string& section_name, const std::string& section_value, const std::vector<UciItem>& items);
+
+        UciSection(const std::string& section_name, const std::string& section_value);
+
+        UciSection()=default;
+
+        UciSection(const UciSection& section)=default;
+
+        void add_item(const UciItem& item);
+
+        void add_items(const std::vector<UciItem>& items);
+
+        std::vector<std::string> get_lines() const;
 
     };
 }

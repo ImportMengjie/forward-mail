@@ -14,11 +14,15 @@ namespace dd{
         std::string config_name;
         std::string config_value;
 
-        std::string line;
+        explicit UciItem(const std::string& line);
 
-        explicit UciItem(std::string line);
+        UciItem()=default;
 
         UciItem(std::string config_type, std::string config_name, std::string config_value);
+
+        std::string get_line() const;
+
+        std::string get_key() const;
 
     private:
         static std::string remove_quota(const std::string& str);

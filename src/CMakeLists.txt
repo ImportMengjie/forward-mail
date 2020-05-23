@@ -17,6 +17,6 @@ add_subdirectory(tools)
 SET(SOURCES main.cpp ForwardMailProducer.cpp ForwardMailProducer.h ForwardMailTask.cpp ForwardMailTask.h)
 ADD_EXECUTABLE(forward-mail ${SOURCES})
 
-target_link_libraries(forward-mail curl base)
+target_link_libraries(forward-mail curl base tools)
 
 INSTALL(TARGETS forward-mail RUNTIME DESTINATION bin)

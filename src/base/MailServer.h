@@ -62,6 +62,8 @@ namespace dd{
             URL = url;
         }
 
+        std::string toString() const;
+
     private:
         CURL* curl;
 

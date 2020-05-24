@@ -40,3 +40,7 @@ void dd::UciPackage::init(const std::vector<UciItem> &items) {
 
 }
 
+dd::UciSection dd::UciPackage::get_section(const std::string& type, const std::string& name) {
+    return this->map_name_sections[UciItem("config",type,name).get_key()];
+}
+

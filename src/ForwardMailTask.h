@@ -6,10 +6,12 @@
 #define FORWARD_MAIL_FORWARDMAILTASK_H
 
 #include "base/Task.h"
-
-#include <utility>
 #include "base/Mail.h"
 #include "base/MailServer.h"
+#include "base/utility.hpp"
+
+#include <iostream>
+#include <utility>
 
 class ForwardMailTask : public dd::Task{
 private:
@@ -20,7 +22,14 @@ public:
     ForwardMailTask(dd::Mail mail, const dd::MailServer& mailServer):mail(std::move(mail)),mailServer(mailServer){}
 
     void doit() override {
+#ifdef DD_VERBOSE
+        std::cout<<"attempt to send mail form "<<mailServer.getMailAddress()
+        <<"to "<<dd::get_middle(mail.get_value("To"), "<", ">")<<std::endl;
+#endif
         mailServer.send_mail(mail);
+#ifdef DD_VERBOSE
+        std::cout<<"send success!"<<std::endl;
+#endif
     }
 };
 

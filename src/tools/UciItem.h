@@ -24,6 +24,8 @@ namespace dd{
 
         std::string get_key() const;
 
+        std::string get_value() const;
+
     private:
         static std::string remove_quota(const std::string& str);
 

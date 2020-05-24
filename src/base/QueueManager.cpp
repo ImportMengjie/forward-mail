@@ -4,6 +4,10 @@
 
 #include "QueueManager.h"
 
+#ifdef DD_VERBOSE
+#include <iostream>
+#endif
+
 void dd::QueueManager::consume() {
     while (live||!queue.empty()){
         auto data = queue.wait_and_pop();
@@ -46,6 +50,9 @@ void dd::QueueManager::product(int ids, int interval_seconds) {
     if(producers.size()>ids){
         while (true){
             auto tasks = producers[ids]->product();
+#ifdef DD_VERBOSE
+            std::cout<<"get task num: "<<tasks.size()<<std::endl;
+#endif
             for(auto& task: tasks)
                 queue.push(task);
             std::this_thread::sleep_for(std::chrono::seconds(interval_seconds));

@@ -36,6 +36,13 @@ namespace dd{
 
         std::vector<std::string> get_lines() const;
 
+        UciItem getOption(const std::string& name);
+
+        std::vector<UciItem> getList(const std::string& name);
+
+        std::string getValue(const std::string& name);
+
+        std::vector<std::string> getValues(const std::string& name);
     };
 }
 

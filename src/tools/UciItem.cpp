@@ -34,4 +34,8 @@ namespace dd{
     std::string UciItem::get_key() const {
         return this->config_name+":"+this->config_value;
     }
+
+    std::string UciItem::get_value() const {
+        return this->config_value;
+    }
 }

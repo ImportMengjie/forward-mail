@@ -45,6 +45,12 @@ endef
 define Package/forward-mail/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin
+
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/forward-mail.sh $(1)/etc/init.d/forward-mail
+
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) files/forward-mail.conf $(1)/etc/config/forward-mail
 endef
 
 # This command is always the last, it uses the definitions and variables we give above in order to get the job done

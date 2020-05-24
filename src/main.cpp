@@ -11,14 +11,24 @@
 using namespace std;
 
 
-int main(){
+int main(int argc, char** argv){
+    if(argc<2) return 0;
+    string config_path(argv[1]);
     curl_global_init(CURL_GLOBAL_ALL);
-    dd::UciPackage uciPackage("/home/mengjie/Documents/55/openwrt/openwrt-sdk-19.07.2-x86-64_gcc-7.5.0_musl.Linux-x86_64/package/forward-mail/files/forward-mail.conf");
+    dd::UciPackage uciPackage(config_path);
+
+    dd::UciSection user_mail = uciPackage.get_section("user_mail","my_config");
+    dd::UciSection others_mail = uciPackage.get_section("others_mail","others_config");
 
     dd::QueueManager queueManager;
-    std::vector<std::string> to_address{"253637141@qq.com","limengjie@hotmail.com"};
+    std::vector<std::string> to_address(others_mail.getValues("to_address"));
+    string temp = "address";
+    string address = user_mail.getValue(temp);
 
-    queueManager.addProducer<ForwardMailProducer>("l253637141@163.com", "ZNFEJFBUGWLGEUYA", "imap://imap.163.com", "smtp://smtp.163.com",to_address);
+    queueManager.addProducer<ForwardMailProducer>(user_mail.getValue("address"),
+            user_mail.getValue("password"), user_mail.getValue("imap_url"),
+                    user_mail.getValue("smtp_url"),
+                            to_address);
 
     queueManager.start(1, 10);
     queueManager.join();

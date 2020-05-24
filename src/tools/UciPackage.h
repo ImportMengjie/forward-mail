@@ -30,6 +30,7 @@ namespace dd{
 
         explicit UciPackage(const std::vector<UciItem>& items);
 
+        UciSection get_section(const std::string& type, const std::string& name);
     };
 }
 

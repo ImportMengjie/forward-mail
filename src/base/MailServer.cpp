@@ -3,15 +3,16 @@
 //
 
 #include "MailServer.h"
-
 #include "utility.hpp"
+
+#include "sstream"
 
 using namespace dd;
 
 void MailServer::init_login() {
     curl_easy_setopt(curl, CURLOPT_USERNAME, username.c_str());
     curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());
-#ifdef DD_DEBUG
+#ifdef DD_VERBOSE
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 #endif
 }
@@ -111,4 +112,11 @@ Mail MailServer::receive_mail(int uid) {
     return mail;
 }
 
+std::string MailServer::toString() const {
+    std::stringstream stringstream;
+    stringstream<<"address: "<<this->mail_address<<std::endl
+    <<"password: "<<this->password<<std::endl
+    <<"url: "<<this->URL<<std::endl;
 
+    return stringstream.str();
+}

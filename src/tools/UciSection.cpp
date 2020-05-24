@@ -39,3 +39,22 @@ void dd::UciSection::add_items(const std::vector<UciItem>& items) {
     for(auto& item:items)
         add_item(item);
 }
+
+dd::UciItem dd::UciSection::getOption(const std::string &name) {
+    return this->options[name];
+}
+
+std::vector<dd::UciItem> dd::UciSection::getList(const std::string &name) {
+    return this->lists[name];
+}
+
+std::string dd::UciSection::getValue(const std::string &name) {
+    return this->getOption(name).get_value();
+}
+
+std::vector<std::string> dd::UciSection::getValues(const std::string &name) {
+    std::vector<std::string> ret;
+    for(auto& item: this->getList(name))
+        ret.push_back(item.get_value());
+    return ret;
+}

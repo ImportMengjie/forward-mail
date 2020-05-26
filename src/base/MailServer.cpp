@@ -5,7 +5,10 @@
 #include "MailServer.h"
 #include "utility.hpp"
 
-#include "sstream"
+#include <sstream>
+#ifdef DD_VERBOSE
+#include <iostream>
+#endif
 
 using namespace dd;
 
@@ -92,10 +95,14 @@ std::vector<int> MailServer::search_new_uid() {
 }
 
 Mail MailServer::receive_mail(int uid) {
+#ifdef DD_VERBOSE
+    std::cerr<<"start receive mail id: "<<uid<<std::endl;
+#endif
     MemoryStruct memoryStruct;
     curl_easy_reset(curl);
     init_login();
-    curl_easy_setopt(curl, CURLOPT_URL, std::string(URL+"/INBOX/;UID="+std::to_string(uid)).c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, std::string(URL+"/INBOX/;MAILINDEX="+std::to_string(uid)).c_str());
+//    curl_easy_setopt(curl, CURLOPT_URL, std::string(URL+"/INBOX/;UID="+std::to_string(uid)).c_str());
 
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &memoryStruct);
@@ -105,7 +112,7 @@ Mail MailServer::receive_mail(int uid) {
 
     if(res != CURLE_OK)
     {
-        fprintf(stderr, "curl_easy_perform() failed: %s\n",
+        fprintf(stderr, "curl_easy_perform() receive mail url: %s code %d failed: %s\n", std::string(URL+"/INBOX/;UID="+std::to_string(uid)).c_str(), res,
                 curl_easy_strerror(res));
     }
     Mail mail(memoryStruct.memory);

@@ -17,6 +17,7 @@ class ForwardMailProducer: public dd::Producer {
 private:
     dd::MailServer send_mailServer;
     dd::MailServer receive_mailServer;
+    dd::MailServer search_marilServer;
 
     std::vector<std::string> to_mails_address;
 

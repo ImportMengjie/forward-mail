@@ -19,9 +19,9 @@ dd::MailServer ForwardMailProducer::generate_new_mail_server(std::string url) {
 
 std::vector<std::shared_ptr<dd::Task>> ForwardMailProducer::product() {
     std::vector<std::shared_ptr<dd::Task>> ans;
-    std::vector<int> new_mail_ids = receive_mailServer.search_new_uid();
-#ifdef DD_DEBUG
-//    new_mail_ids.push_back(3);
+    std::vector<int> new_mail_ids = search_marilServer.search_new_uid();
+#ifdef DD_VERBOSE
+    std::cout<<"get mail ids size: "<<new_mail_ids.size()<<std::endl;
 #endif
     for(int& uid:new_mail_ids){
         dd::Mail new_mail = receive_mailServer.receive_mail(uid);
@@ -38,7 +38,8 @@ std::vector<std::shared_ptr<dd::Task>> ForwardMailProducer::product() {
 ForwardMailProducer::ForwardMailProducer(const std::string& mail_address, const std::string& password, std::string receive_url,
                                          std::string send_url, std::vector<std::string> &to_mails_address)
         : send_mailServer(mail_address, password,
-                          std::move(send_url)),receive_mailServer(mail_address, password, std::move(receive_url)) , to_mails_address(to_mails_address) {
+                          std::move(send_url)),receive_mailServer(mail_address, password, std::move(receive_url)) ,
+                          to_mails_address(to_mails_address), search_marilServer(receive_mailServer) {
 #ifdef DD_VERBOSE
     std::cout<<"send mail server:"<<std::endl
     <<send_mailServer.toString()

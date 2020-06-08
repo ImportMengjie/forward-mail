@@ -21,6 +21,9 @@ namespace dd{
             memory[0] = '\0';
             size = 0;
         }
+        ~MemoryStruct(){
+            free(memory);
+        }
     };
 
     class MailServer {
